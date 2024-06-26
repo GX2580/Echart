@@ -30,12 +30,11 @@ export default {
     return {
       options: {
         xAxis: {
-          type: "category",
+          type: "value",
           show: false,
-          boundaryGap:false,
         },
         yAxis: {
-          type: "value",
+          type: "category",
           show: false,
         },
         grid: {
@@ -46,8 +45,8 @@ export default {
         },
         series: [
           {
-            type: "line",
-            data: [], // 初始数据为空
+            type: "bar",
+            data: [130], // 初始数据为空
             areaStyle: {
               color: "purple",
             },
