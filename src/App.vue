@@ -27,10 +27,7 @@ export default {
           show: false, // 隐藏 X 轴
         },
         yAxis: {
-          axisLabel: {
-            fontSize: 12,
-            color: "#666",
-          },
+          show: false, // 隐藏 Y 轴
         },
         series: [
           {
@@ -40,9 +37,14 @@ export default {
             itemStyle: {
               color: "#409EFF",
             },
+            barWidth: "60%", // 加宽每个柱子的宽度
           },
         ],
+        grid: {
+          height: "80%", // 增加表格的高度
+        },
       },
+
       reportData: null, // 用于存储从 fetchReportData 获取的数据
     };
   },
