@@ -40,7 +40,7 @@
     font-size: 1.4em; // 让 default 插槽内的文字字体大一点
     justify-content: flex-start;
     // background-color: pink;
-    margin-left: -165px;
+    margin-left: -130px;
   
     .comparison-item {
       display: flex;

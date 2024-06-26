@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <total-sale></total-sale>
+    <total-sale class="left-margin"></total-sale>
     <total-order></total-order>
     <today-user></today-user>
     <total-user></total-user> <!-- Add this line to include the totalUser component -->
@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 #app {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: stretch;
 
   > * {
@@ -35,6 +35,10 @@ export default {
     // border: 1px solid #ccc;
     // padding: 20px;
     box-sizing: border-box;
+  }
+
+  .left-margin {
+    margin-left: 20px; /* 你可以根据需要调整这个值 */
   }
 }
 </style>
