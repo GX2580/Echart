@@ -51,7 +51,7 @@
               type: "bar",
               data: [], // 初始数据为空
               itemStyle: {
-                color: "purple",
+                color: "RGB(92, 123, 217)",
               },
               barWidth: "60%", // 加宽每个柱子的宽度
             },

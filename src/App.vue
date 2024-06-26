@@ -6,7 +6,7 @@
       </template>
       <template #footer>
         <span>昨日销售额</span>
-        <span v-if="reportData" class="css-1">￥{{ reportData.salesLastDay }}</span>
+        <span v-if="reportData" class="css-1">￥{{ reportData.orderLastDay }}</span>
         <span v-else class="css-1">加载中...</span>
       </template>
     </CommonCard>
@@ -22,51 +22,37 @@ export default {
   data() {
     return {
       options: {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
-          }
-        },
         xAxis: {
           type: "category",
           show: false,
-          data: [
-            "00:00",
-            "03:00",
-            "05:00",
-            "07:00",
-            "09:00",
-            "11:00",
-            "13:00",
-            "15:00",
-            "17:00",
-            "19:00",
-            "21:00",
-            "23:00",
-          ],
+          boundaryGap:false,
         },
         yAxis: {
           type: "value",
           show: false,
         },
-        series: [
-          {
-            name: "实时交易量",
-            type: "bar",
-            data: [], // 初始数据为空
-            itemStyle: {
-              color: "#409EFF",
-            },
-            barWidth: "60%", // 加宽每个柱子的宽度
-          },
-        ],
         grid: {
           left: 0,
           right: 0,
           top: 0,
           bottom: 0,
         },
+        series: [
+          {
+            type: "line",
+            data: [], // 初始数据为空
+            areaStyle: {
+              color: "purple",
+            },
+            itemStyle: {
+            opacity: 0,
+          },
+          lineStyle: {
+            opacity: 0,
+          },
+           smooth: true,
+          },
+        ],
       },
       reportData: null, // 用于存储从 fetchReportData 获取的数据
     };
@@ -81,8 +67,8 @@ export default {
         const data = await fetchReportData();
         this.reportData = data;
         // 更新图表数据
-        if (data.orderUserTrend && data.orderUserTrend.length > 0) {
-          this.options.series[0].data = data.orderUserTrend;
+        if (data.orderTrend && data.orderTrend.length > 0) {
+          this.options.series[0].data = data.orderTrend;
         }
       } catch (error) {
         console.error("Error fetching report data:", error);
