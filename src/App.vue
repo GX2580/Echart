@@ -1,93 +1,40 @@
 <template>
-  <div class="total-user">
-    <CommonCard title="累计用户数" value="768923">
-      <v-chart :option="option" />
-      <template #footer>
-        <div class="wrapper">
-          <div>
-            <span>日同比</span>
-            <span class="css-1">12.35%</span>
-            <span class="increase"></span>
-          </div>
-          <div>
-            <span>月同比</span>
-            <span class="css-1">23.97%</span>
-            <span class="decrease"></span>
-          </div>
-        </div>
-      </template>
-    </CommonCard>
+  <div id="app">
+    <total-sale></total-sale>
+    <total-order></total-order>
+    <today-user></today-user>
+    <total-user></total-user> <!-- Add this line to include the totalUser component -->
   </div>
 </template>
 
 <script>
-import { fetchReportData } from "@/api/data.js"; // 确保路径正确
-import CommonCard from "@/components/CommonCard.vue";
-import VChart from "vue-echarts"; // 确保你已经安装了 vue-echarts 并正确导入
+import TotalSale from '@/components/tables/totalSale.vue';
+import TotalOrder from '@/components/tables/totalOrder.vue';
+import TodayUser from '@/components/tables/todayUser.vue';
+import TotalUser from '@/components/tables/totalUser.vue'; // Import the totalUser component
 
 export default {
-  data() {
-    return {
-      options: {
-        xAxis: {
-          type: "value",
-          show: false,
-        },
-        yAxis: {
-          type: "category",
-          show: false,
-        },
-        grid: {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-        },
-        series: [
-          {
-            type: "bar",
-            data: [130], // 初始数据为空
-            areaStyle: {
-              color: "purple",
-            },
-            itemStyle: {
-            opacity: 0,
-          },
-          lineStyle: {
-            opacity: 0,
-          },
-           smooth: true,
-          },
-        ],
-      },
-      reportData: null, // 用于存储从 fetchReportData 获取的数据
-    };
-  },
-  components: { CommonCard, VChart },
-  async mounted() {
-    await this.initChart();
-  },
-  methods: {
-    async initChart() {
-      try {
-        const data = await fetchReportData();
-        this.reportData = data;
-        // 更新图表数据
-        if (data.orderTrend && data.orderTrend.length > 0) {
-          this.options.series[0].data = data.orderTrend;
-        }
-      } catch (error) {
-        console.error("Error fetching report data:", error);
-      }
-    },
-  },
-};
+  components: {
+    TodayUser,
+    TotalOrder,
+    TotalSale,
+    TotalUser // Register the totalUser component
+  }
+}
 </script>
 
-<style scoped lang="scss">
-.css-1 {
-  color: black;
-  font-weight: bolder;
-  margin-left: 5px;
+<style lang="scss" scoped>
+#app {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+
+  > * {
+    flex: 1;
+    // margin: 0 10px;
+    // border: 1px solid #ccc;
+    // padding: 20px;
+    box-sizing: border-box;
+  }
 }
 </style>

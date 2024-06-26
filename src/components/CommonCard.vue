@@ -21,7 +21,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .common-card {
-  width: 400px;
+  width: 350px;
   height: 300px;
 
   .el-card {
