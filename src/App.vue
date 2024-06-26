@@ -1,13 +1,13 @@
-
 <template>
-  <div class="today-user">
-    <CommonCard title="今日用户交易数" value="30">
+  <div class="total-order">
+    <CommonCard title="累计订单额" value="13145">
       <template #default>
         <v-chart :option="options" />
       </template>
       <template #footer>
-        <span>退货率</span>
-        <span class="css-1">3.57%</span>
+        <span>昨日销售额</span>
+        <span v-if="reportData" class="css-1">￥{{ reportData.salesLastDay }}</span>
+        <span v-else class="css-1">加载中...</span>
       </template>
     </CommonCard>
   </div>
@@ -16,12 +16,18 @@
 <script>
 import { fetchReportData } from "@/api/data.js"; // 确保路径正确
 import CommonCard from "@/components/CommonCard.vue";
+import VChart from "vue-echarts"; // 确保你已经安装了 vue-echarts 并正确导入
 
 export default {
   data() {
     return {
       options: {
-        tooltip: {},
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
         xAxis: {
           type: "category",
           show: false,
@@ -65,27 +71,15 @@ export default {
       reportData: null, // 用于存储从 fetchReportData 获取的数据
     };
   },
-  components: { CommonCard },
+  components: { CommonCard, VChart },
   async mounted() {
-    // 确保在窗口加载完成后执行图表初始化
-    window.onload = () => {
-      this.initChart();
-    };
-
-    // 如果窗口已经加载完成，直接执行图表初始化
-    if (document.readyState === 'complete') {
-      this.initChart();
-    }
+    await this.initChart();
   },
   methods: {
     async initChart() {
       try {
         const data = await fetchReportData();
         this.reportData = data;
-        console.log(data);
-        console.log(data.orderLastDay);
-        console.log(data.orderTrend);
-
         // 更新图表数据
         if (data.orderUserTrend && data.orderUserTrend.length > 0) {
           this.options.series[0].data = data.orderUserTrend;
@@ -104,6 +98,4 @@ export default {
   font-weight: bolder;
   margin-left: 5px;
 }
-
- 
 </style>
