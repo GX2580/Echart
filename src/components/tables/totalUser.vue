@@ -7,12 +7,12 @@
             <div class="wrapper">
               <div>
                 <span>日同比</span>
-                <span class="css-1">{{ reportData ? reportData.dailyChange : '0' }}%</span>
+                <span class="css-1">12.35%</span>
                 <span class="increase"></span>
               </div>
               <div>
                 <span>月同比</span>
-                <span class="css-1">{{ reportData ? reportData.monthlyChange : '0' }}%</span>
+                <span class="css-1">23.97%</span>
                 <span class="decrease"></span>
               </div>
             </div>
@@ -47,7 +47,7 @@
             series: [
               {
                 type: "bar",
-                data: [], // 初始数据为空
+                data: [130], // 初始数据为空
                 itemStyle: {
                   color: "green",
                 },
@@ -56,7 +56,7 @@
               },
               {
                 type: "bar",
-                data: [300], // 设置绿色进度条占比70%
+                data: [30], 
                 itemStyle: {
                   color: "#ddd",
                 },
@@ -104,6 +104,7 @@
               },
             ],
           },
+          data:[130],
           reportData: null, // 存储从fetchReportData获取的数据
         };
       },
